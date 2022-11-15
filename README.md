@@ -1,4 +1,4 @@
-## Dropwizard Java Example
+## Dropwizard App - using jkube - for deploying to Kubernetes (minikube)
 
 This is an example Dropwizard app using Java. 
 
