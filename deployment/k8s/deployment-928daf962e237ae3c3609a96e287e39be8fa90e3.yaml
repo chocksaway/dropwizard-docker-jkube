@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: "dropwizard-docker-jkube"
+  labels:
+    app: "dropwizard-docker-jkube"
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 8080
+      name: http
+    - port: 443
+      protocol: TCP
+      targetPort: 8443
+      name: https
+  selector:
+    app: "dropwizard-docker-jkube"
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "dropwizard-docker-jkube"
+spec:
+  selector:
+    matchLabels:
+      app: "dropwizard-docker-jkube"
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: "ddropwizard-docker-jkube"
+    spec:
+      containers:
+        - name: "dropwizard-docker-jkube"
+          image: "chocksaway/dropwizard-docker-jkube:928daf962e237ae3c3609a96e287e39be8fa90e3"
+          ports:
+            - containerPort: 8080
+            - containerPort: 8443
